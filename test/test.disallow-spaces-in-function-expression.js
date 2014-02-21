@@ -40,7 +40,7 @@ describe('rules/disallow-spaces-in-function-expression', function() {
             assert(checker.checkString('function abc (){}').getErrorCount() === 1);
         });
 
-        it('should not report missing space before round brace without option', function() {
+        it('should not report space before round brace without option', function() {
             checker.configure({ disallowSpacesInFunctionExpression: { beforeOpeningCurlyBrace: true } });
             assert(checker.checkString('var x = function (){}').isEmpty());
         });
@@ -50,9 +50,14 @@ describe('rules/disallow-spaces-in-function-expression', function() {
             assert(checker.checkString('var x = { get foo () {} }').getErrorCount() === 1);
         });
 
-        it('should not report missing space before round brace in getter functions', function() {
+        it('should not report missing space before round brace in getters w/o space inside curly braces', function() {
             checker.configure({ disallowSpacesInFunctionExpression: { beforeOpeningRoundBrace: true } });
             assert(checker.checkString('var x = { get foo() {} }').isEmpty());
+        });
+
+        it('should not report missing space before round brace in getters with space inside curly braces', function() {
+            checker.configure({ disallowSpacesInFunctionExpression: { beforeOpeningRoundBrace: true } });
+            assert(checker.checkString('var x = { get foo() { } }').isEmpty());
         });
 
     });

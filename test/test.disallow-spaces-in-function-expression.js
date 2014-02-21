@@ -40,7 +40,6 @@ describe('rules/disallow-spaces-in-function-expression', function() {
             assert(checker.checkString('function abc (){}').getErrorCount() === 1);
         });
 
-        // FIXME: says Curly brace here..
         it('should not report missing space before round brace without option', function() {
             checker.configure({ disallowSpacesInFunctionExpression: { beforeOpeningCurlyBrace: true } });
             assert(checker.checkString('var x = function (){}').isEmpty());
